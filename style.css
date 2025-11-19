@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+:root {
+    --primary-color: #bb5c0e;
+    --dark-color: #211C84;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight:400;
+    color: #555;
+}
+
+
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+a:hover {
+    color: #DF6D14;
+    text-decoration: none;
+}
+
+.text-primary{
+    color: var(--primary-color) !important;
+}
+
+.text-dark {
+    color: var(--primary-color);
+}
+
+
+
+.main-header .navbar{
+    padding: 15px 0;
+}
+
+.main-header .navbar-nav > li {
+    padding: 0 12px;
+}
+
+
+
+.main-header .navbar-nav >li > .nav-link {
+    padding: 0 5px;
+    line-height: 35px ;
+    font-weight: 500;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 1px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.main-header .navbar-nav >li > .nav-link:after{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease, left 0.3s ease;
+
+}
+
+.main-header .navbar-nav >li > .nav-link:hover{
+ color: var(--primary-color);
+}
+
+.main-header .navbar-nav >li > .nav-link:hover:after{
+    left: 0;
+    width: 100%;
+   }
+
+   
+
+@media (max-width: 991px){
+    .navbar-nav .nav-item .nav-link span::after {
+        display: none; /* Hides the underline transition */
+    }
+   
+    .main-header .navbar-collapse {
+        border-top:1.5px solid var(--primary-color);
+        position:absolute;
+       background: #fff;
+       top:100%;
+       left: 0;
+       right: 0;
+       padding: 10px;
+      
+    }
+    .main-header .navbar-collapse .d-flex {
+        width: 100%; /* Ensures search bar takes full width */
+        justify-content:center; /* Centers the search bar */
+        padding: 10px 15px; /* Adds spacing */
+        padding-bottom: 10px;
+    }
+
+    .main-header .navbar-collapse .form-control {
+        width: 100%; /* Makes the search box responsive */
+        max-width: 400px; /* Prevents it from being too wide */
+    }
+
+    .main-header .navbar-nav >li + li {
+        border-top: 1px solid rgba(55, 55, 55, 0.1);
+    }
+    .main-header .navbar-nav > li > .nav-link{
+        line-height: 50px;
+    }
+    .main-header .navbar-nav > li > .nav-link:after{
+     display:none;
+    }
+    .main-header .navbar-toggler {
+        display:flex;
+        flex-direction: column;
+        border:none;
+        padding: 4px 9px;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .main-header .navbar-toggler span {
+        width: 25px;
+        height: 2.5px;
+        background: #000000;
+        margin: 4px 0;
+        transition: 0.3s;
+    }
+}
+
+
+
+.school-name {
+    font-size: 0.75rem; /* Slightly smaller */
+    font-weight: 600; /* Bolder text */
+    margin-top: -2px;
+    color: #2C3930;
+}
+
+.subtext {
+    font-size: 0.75rem; /* Smaller text for "Tomas SM." */
+    font-weight: 600; /* Slightly bold */
+    color: #2C3930;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column; /* Stacks the text */
+    font-weight: bold;
+    line-height: 1;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center; /* Ensures logo and text align properly */
+    gap: 8px; /* Adds spacing between logo and text */
+}
+
+.navbar-brand img {
+    vertical-align: middle; /* Ensures proper alignment */
+}
+
+
+.navbar-brand span {
+    display: inline-block;
+    padding-top: 5px; /* Adjust to lower the text */
+}
+
+.main-header .navbar-nav .dropdown-menu {
+    border: none;
+    background: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-header .navbar-nav .dropdown-item {
+    font-size: 14px;
+    padding: 10px 20px;
+    transition: background 0.3s ease;
+}
+
+.main-header .navbar-nav .dropdown-item:hover {
+    background: rgba(187, 92, 14, 0.1); /* Light orange hover effect */
+    color: var(--primary-color);
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.navbar-nav .nav-item .nav-link span {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+.navbar-nav .nav-item .nav-link span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover span::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Adjust icon size and spacing */
+.navbar-nav .nav-item .nav-link span i {
+    font-size: 9px; /* Make the icon smaller */
+    margin-left: 3px; /* Add spacing */
+    vertical-align: middle; /* Align properly */
+}
+
+/* Rotate icon when dropdown is open */
+.navbar-nav .nav-item .nav-link[aria-expanded="true"] span i {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+ 
+
+
