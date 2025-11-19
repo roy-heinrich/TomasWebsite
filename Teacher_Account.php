@@ -130,7 +130,7 @@ if (strpos($profileImage, 'http') === 0) {
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
        <!-- Chart.js and Custom Chart Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
  <style>

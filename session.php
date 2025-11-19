@@ -37,8 +37,16 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Helper: compute request fingerprint to mitigate session hijack
+// On Heroku/proxies, use X-Forwarded-For header if available (more reliable than REMOTE_ADDR)
+$client_ip = $_SERVER['REMOTE_ADDR'] ?? '';
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    // X-Forwarded-For can contain multiple IPs; use the first one (client's IP)
+    $forwarded_ips = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+    $client_ip = $forwarded_ips[0] ?? $client_ip;
+}
+
 $__session_fingerprint = hash('sha256',
-    ($_SERVER['REMOTE_ADDR'] ?? '') . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? '')
+    $client_ip . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? '')
 );
 
 // If fingerprint exists and doesn't match, force logout
