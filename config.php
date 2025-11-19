@@ -1,18 +1,20 @@
 <?php
 // Load from environment variables (production) or .env file (local development)
 // Priority: environment variables > .env file
-function getEnv($key, $default = null) {
-    $value = getenv($key);
-    if ($value !== false) {
-        return $value;
+if (!function_exists('getEnv')) {
+    function getEnv($key, $default = null) {
+        $value = getenv($key);
+        if ($value !== false) {
+            return $value;
+        }
+        // Fall back to .env file for local development
+        static $env = null;
+        if ($env === null) {
+            $envFile = __DIR__ . '/.env';
+            $env = file_exists($envFile) ? parse_ini_file($envFile) : [];
+        }
+        return $env[$key] ?? $default;
     }
-    // Fall back to .env file for local development
-    static $env = null;
-    if ($env === null) {
-        $envFile = __DIR__ . '/.env';
-        $env = file_exists($envFile) ? parse_ini_file($envFile) : [];
-    }
-    return $env[$key] ?? $default;
 }
 
 define('DB_HOST', getEnv('DB_HOST'));
