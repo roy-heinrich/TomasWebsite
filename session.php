@@ -36,34 +36,34 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Helper: compute request fingerprint to mitigate session hijack
-// On Heroku/proxies, use X-Forwarded-For header if available (more reliable than REMOTE_ADDR)
-$client_ip = $_SERVER['REMOTE_ADDR'] ?? '';
-if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    // X-Forwarded-For can contain multiple IPs; use the first one (client's IP)
-    $forwarded_ips = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
-    $client_ip = $forwarded_ips[0] ?? $client_ip;
-}
+// Helper: Skip fingerprint validation on Heroku/proxies
+// The session cookie itself is already secure with httponly, secure, and samesite flags
+// Fingerprint checking causes issues on platforms with dynamic IPs and load balancing
+// Only validate fingerprint on local development
+$is_heroku = !empty($_SERVER['DYNO']) || !empty($_SERVER['HTTP_X_FORWARDED_FOR']);
 
-$__session_fingerprint = hash('sha256',
-    $client_ip . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? '')
-);
+if (!$is_heroku && isset($_SESSION['fingerprint'])) {
+    // Local development: compute and validate fingerprint
+    $client_ip = $_SERVER['REMOTE_ADDR'] ?? '';
+    $__session_fingerprint = hash('sha256',
+        $client_ip . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? '')
+    );
 
-// If fingerprint exists and doesn't match, force logout
-if (isset($_SESSION['fingerprint']) && $_SESSION['fingerprint'] !== $__session_fingerprint) {
-    // Clear and destroy session
-    $_SESSION = [];
-    if (session_status() !== PHP_SESSION_NONE) session_destroy();
+    if ($_SESSION['fingerprint'] !== $__session_fingerprint) {
+        // Clear and destroy session
+        $_SESSION = [];
+        if (session_status() !== PHP_SESSION_NONE) session_destroy();
 
-    // Return 401 for AJAX, otherwise redirect to login
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-        http_response_code(401);
-        header('Content-Type: application/json');
-        echo json_encode(['success' => false, 'message' => 'Session invalid']);
-        exit;
-    } else {
-        header('Location: login.php');
-        exit;
+        // Return 401 for AJAX, otherwise redirect to login
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            http_response_code(401);
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Session invalid']);
+            exit;
+        } else {
+            header('Location: login.php');
+            exit;
+        }
     }
 }
 
@@ -99,7 +99,11 @@ $_SESSION['last_activity'] = time();
 if (!function_exists('session_set_fingerprint')) {
     function session_set_fingerprint() {
         if (session_status() !== PHP_SESSION_ACTIVE) return;
-        $_SESSION['fingerprint'] = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        // Only set fingerprint on local development (not on Heroku)
+        $is_heroku = !empty($_SERVER['DYNO']) || !empty($_SERVER['HTTP_X_FORWARDED_FOR']);
+        if (!$is_heroku) {
+            $_SESSION['fingerprint'] = hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . '|' . ($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        }
         $_SESSION['created'] = time();
         $_SESSION['last_activity'] = time();
     }
