@@ -158,7 +158,7 @@ if (strpos($profileImage, 'http') === 0) {
     <title>Chatbot Management</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
@@ -781,7 +781,7 @@ if (strpos($profileImage, 'http') === 0) {
 
                     <div class="tab-content" id="managementTabsContent">
                        <!-- Add New Prompt Tab -->
-<div class="tab-pane fade shadow-lg mb-4 show active" id="prompts" role="tabpanel">
+<div class="tab-pane fade shadow-lg mb-4 show active" id="prompts" role="tabpanel" aria-labelledby="prompts-tab">
     <h3 class="section-title">Add New Chatbot Prompt</h3>
 
  <!-- Chatbot Instructions -->
@@ -855,7 +855,7 @@ if (strpos($profileImage, 'http') === 0) {
 </div>
 
                         <!-- Existing Prompts Tab -->
-                        <div class="tab-pane fade shadow-lg mb-4" id="existing" role="tabpanel">
+                        <div class="tab-pane fade shadow-lg mb-4" id="existing" role="tabpanel" aria-labelledby="existing-tab">
                             <h3 class="section-title">Existing Keyword Prompts</h3>
                             <div class="table-container">
                                 <table id="promptsTable" class="table table-hover" style="width:100%">
@@ -1040,17 +1040,17 @@ if (strpos($profileImage, 'http') === 0) {
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
