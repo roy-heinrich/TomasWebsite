@@ -1,0 +1,33 @@
+﻿{
+    "name": "tomas-sm/bautista-attendance-system",
+    "lockFileVersion": 2,
+    "requires": {
+        "php": "^7.4 || ^8.0 || ^8.1 || ^8.2",
+        "ext-pdo": "*",
+        "ext-pgsql": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*",
+        "ext-fileinfo": "*",
+        "ext-openssl": "*"
+    },
+    "packages": [],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^7.4 || ^8.0 || ^8.1 || ^8.2",
+        "ext-pdo": "*",
+        "ext-pgsql": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-json": "*",
+        "ext-fileinfo": "*",
+        "ext-openssl": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
